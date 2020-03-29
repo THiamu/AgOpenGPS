@@ -62,17 +62,16 @@ namespace ArdEmu
 
                 // Initialise the socket
                 serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
-                serverSocket.EnableBroadcast = true;
 
                 // Initialise the IPEndPoint and listen on port 8888
-                IPEndPoint server = new IPEndPoint(IPAddress.Any, Properties.Settings.Default.setIP_thisPort);
+                IPEndPoint server = new IPEndPoint(IPAddress.Any,8888);
 
                 // Associate the socket with this IP address and port
                 serverSocket.Bind(server);
 
-                //IP address and port of AgOpenServer  port 9999 
-                IPAddress zeroIP = IPAddress.Parse(Properties.Settings.Default.setIP_autoSteerIP);
-                epAgOpen = new IPEndPoint(zeroIP, Properties.Settings.Default.setIP_autoSteerPort);
+                //IP address and port of AgOpenServer
+                IPAddress zeroIP = IPAddress.Parse("192.168.0.255");
+                epAgOpen = new IPEndPoint(zeroIP, 9999);
 
                 // Initialise the IPEndPoint for the client
                 EndPoint client = new IPEndPoint(IPAddress.Any, 0);
@@ -80,11 +79,10 @@ namespace ArdEmu
                 // Start listening for incoming data
                 serverSocket.BeginReceiveFrom(buffer, 0, buffer.Length, SocketFlags.None, 
                                                 ref client, new AsyncCallback(ReceiveData), serverSocket);
+
             }
             catch (Exception)
             {
-                MessageBox.Show("UDP Network Not Connected - No Ethernet", "Serious Error",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
-                serverSocket.Close();
             }
         }
 
@@ -253,7 +251,7 @@ namespace ArdEmu
             }
             catch (Exception ex)
             {
-                //MessageBox.Show("Send Error: " + ex.Message, "UDP Client", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Send Error: " + ex.Message, "UDP Client", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -294,14 +292,6 @@ namespace ArdEmu
             Properties.Settings.Default.nudTimer = nudTimer.Value;
 
             Properties.Settings.Default.Save();
-        }
-
-        private void btnUDPSettings_Click(object sender, EventArgs e)
-        {
-            using (var form = new FormUDP(this))
-            {
-                var result = form.ShowDialog();
-            }
         }
     }
 }

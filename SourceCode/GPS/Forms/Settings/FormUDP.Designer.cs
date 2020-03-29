@@ -366,7 +366,6 @@
             this.cboxIsInterAppOn.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cboxIsInterAppOn.Checked = true;
             this.cboxIsInterAppOn.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cboxIsInterAppOn.Enabled = false;
             this.cboxIsInterAppOn.FlatAppearance.CheckedBackColor = System.Drawing.Color.PaleGreen;
             this.cboxIsInterAppOn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cboxIsInterAppOn.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
